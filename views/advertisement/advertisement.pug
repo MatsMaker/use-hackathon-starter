@@ -1,0 +1,23 @@
+extends ../layout
+
+block content
+  .page-header
+    h3 Advertisement
+
+  form.form-horizontal(method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group
+      label.col-sm-3.control-label(for='subject') Subject
+      .col-sm-7
+        input.form-control(type='text', name='subject', id='subject')
+
+    .form-group
+      label.col-sm-3.control-label(for='name') Name
+      .col-sm-7
+        textarea.form-control(name='description', id='description')
+
+    .form-group
+      .col-sm-offset-3.col-sm-4
+        button.btn.btn.btn-primary(type='submit')
+          i.fa.fa-pencil
+          | Submit

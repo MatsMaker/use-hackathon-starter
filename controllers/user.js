@@ -3,6 +3,7 @@ const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const passport = require('passport');
 const User = require('../models/User');
+const Role = require('../models/Role');
 
 /**
  * GET /login
@@ -114,8 +115,13 @@ exports.postSignup = (req, res, next) => {
  * Profile page.
  */
 exports.getAccount = (req, res) => {
-  res.render('account/profile', {
-    title: 'Account Management'
+  req.user.populate('role', () => {
+    Role.find({}, (err, roles) => {
+      res.render('account/profile', {
+        title: 'Account Management',
+        roles
+      });
+    });
   });
 };
 
@@ -137,6 +143,7 @@ exports.postUpdateProfile = (req, res, next) => {
   User.findById(req.user.id, (err, user) => {
     if (err) { return next(err); }
     user.email = req.body.email || '';
+    user.role = req.body.role || '';
     user.profile.name = req.body.name || '';
     user.profile.gender = req.body.gender || '';
     user.profile.location = req.body.location || '';

@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt-nodejs');
 const crypto = require('crypto');
 const mongoose = require('mongoose');
+require('./Role');
 
 const userSchema = new mongoose.Schema({
   email: { type: String, unique: true },
@@ -16,11 +17,15 @@ const userSchema = new mongoose.Schema({
   linkedin: String,
   steam: String,
   tokens: Array,
-
+  role: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Role',
+  },
   profile: {
     name: String,
     gender: String,
     location: String,
+    phone: String,
     website: String,
     picture: String
   }

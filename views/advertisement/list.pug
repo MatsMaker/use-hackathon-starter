@@ -1,0 +1,11 @@
+extends ../layout
+
+block content
+  .page-header
+    h3 Advertisement list
+
+    ul.advertisementList
+      each advertisement in advertisementList
+        li
+          h6= advertisement.subject
+          span= advertisement.description
